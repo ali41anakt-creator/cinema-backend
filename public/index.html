@@ -1,0 +1,1241 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CoreI9 Cinema</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#06060f;--sur:#0e0e1f;--card:#13132a;--brd:#1e1e40;--red:#ff2d55;--gold:#ffd60a;--blue:#0a84ff;--grn:#30d158;--txt:#f0f0f0;--muted:#777;--font:'Outfit',sans-serif;--head:'Bebas Neue',sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--txt);font-family:var(--font);min-height:100vh}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-thumb{background:var(--red);border-radius:3px}
+header{position:sticky;top:0;z-index:90;background:rgba(6,6,15,.96);backdrop-filter:blur(16px);border-bottom:1px solid var(--brd);display:flex;align-items:center;justify-content:space-between;padding:0 28px;height:60px}
+.logo{font-family:var(--head);font-size:1.7em;letter-spacing:2px;background:linear-gradient(135deg,var(--red),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.logo small{font-size:.45em;opacity:.5;-webkit-text-fill-color:var(--muted);display:block;line-height:1;letter-spacing:5px}
+nav{display:flex;gap:6px;align-items:center}
+.nbtn{background:transparent;border:1px solid var(--brd);color:var(--txt);padding:7px 15px;border-radius:8px;cursor:pointer;font-family:var(--font);font-size:.88em;transition:.2s}
+.nbtn:hover{border-color:var(--red);color:var(--red)}
+.nbtn.primary{background:var(--red);border-color:var(--red);color:#fff}
+#username-show{color:var(--gold);font-size:.88em;margin-right:4px}
+.balance-badge{background:rgba(48,209,88,.15);color:var(--grn);border:1px solid rgba(48,209,88,.3);padding:4px 10px;border-radius:20px;font-size:.82em;font-weight:600}
+.hero{background:linear-gradient(160deg,#070712,#15082a,#07120a);padding:56px 28px 36px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(255,45,85,.12),transparent 60%)}
+.hero h1{font-family:var(--head);font-size:clamp(2.4em,6vw,4.8em);letter-spacing:4px;position:relative;background:linear-gradient(135deg,#fff 30%,var(--red));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{color:var(--muted);margin:8px 0 26px;font-size:1em;position:relative}
+.srow{display:flex;gap:10px;max-width:680px;margin:0 auto;flex-wrap:wrap;position:relative}
+.srow input,.srow select{flex:1;min-width:160px;padding:12px 16px;background:rgba(255,255,255,.05);border:1px solid var(--brd);color:var(--txt);border-radius:10px;font-family:var(--font);font-size:.92em}
+.srow input:focus,.srow select:focus{outline:none;border-color:var(--red)}
+.srow select option{background:#1a1a2e}
+.btn{padding:11px 22px;border:none;border-radius:10px;cursor:pointer;font-family:var(--font);font-weight:600;font-size:.92em;transition:.2s}
+.btn-red{background:var(--red);color:#fff}.btn-red:hover{background:#e0001f}
+.btn-gold{background:var(--gold);color:#000}
+.btn-grn{background:var(--grn);color:#000}.btn-grn:hover{background:#25b34a}
+.btn-blue{background:#0a84ff;color:#fff}.btn-blue:hover{background:#0070e0}
+.btn-ghost{background:transparent;border:1px solid var(--brd);color:var(--txt)}
+.btn-ghost:hover{border-color:var(--red);color:var(--red)}
+.btn-danger{background:#c0392b;color:#fff;border:none}
+.btn-sm{padding:6px 13px;font-size:.8em;border-radius:7px}
+main{max-width:1280px;margin:0 auto;padding:26px 18px}
+.tabs{display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap;border-bottom:1px solid var(--brd);padding-bottom:14px}
+.tab{padding:8px 18px;background:transparent;border:1px solid transparent;color:var(--muted);border-radius:8px;cursor:pointer;font-family:var(--font);font-size:.88em;transition:.2s}
+.tab:hover{color:var(--txt);border-color:var(--brd)}
+.tab.on{background:var(--red);color:#fff;border-color:var(--red)}
+.page{display:none}.page.on{display:block}
+.stitle{font-family:var(--head);font-size:1.7em;letter-spacing:2px;display:flex;align-items:center;gap:10px;margin-bottom:20px}
+.stitle::after{content:'';flex:1;height:1px;background:var(--brd)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:18px}
+.card{background:var(--card);border:1px solid var(--brd);border-radius:14px;overflow:hidden;cursor:pointer;transition:.25s}
+.card:hover{transform:translateY(-5px);border-color:var(--red);box-shadow:0 16px 48px rgba(255,45,85,.18)}
+.cposter{height:160px;display:flex;align-items:center;justify-content:center;font-size:3.6em;background:linear-gradient(135deg,#1a1a2e,#2a1a3e);overflow:hidden}
+.cposter img{width:100%;height:100%;object-fit:cover}
+.cbody{padding:14px}
+.ctitle{font-weight:700;font-size:.95em;margin-bottom:6px;line-height:1.3}
+.cmeta{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:6px}
+.badge{padding:2px 7px;border-radius:20px;font-size:.7em;font-weight:600}
+.bg{background:rgba(10,132,255,.18);color:var(--blue)}
+.ba{background:rgba(255,45,85,.18);color:var(--red)}
+.bv{background:rgba(255,214,10,.18);color:var(--gold)}
+.bh{background:rgba(48,209,88,.15);color:var(--grn)}
+.rat{color:var(--gold);font-size:.82em;margin-bottom:8px}
+.sgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:16px}
+.sc{background:var(--card);border:1px solid var(--brd);border-radius:13px;padding:18px;transition:.2s}
+.sc:hover{border-color:var(--red)}
+.sprice{font-size:1.25em;font-weight:700;color:var(--gold);margin:10px 0 4px}
+.sfree{font-size:.82em;color:var(--grn)}
+.screen{background:linear-gradient(180deg,rgba(255,255,255,.09),transparent);text-align:center;padding:7px;border-radius:7px;font-size:.72em;letter-spacing:5px;color:var(--muted);margin-bottom:18px}
+.seatgrid{display:flex;flex-direction:column;gap:7px;align-items:center}
+.seatrow{display:flex;gap:5px;align-items:center}
+.rlbl{width:20px;text-align:center;color:var(--muted);font-size:.75em;font-weight:600}
+.seat{width:32px;height:32px;border-radius:5px 5px 2px 2px;border:none;display:flex;align-items:center;justify-content:center;font-size:.62em;font-weight:700;cursor:pointer;transition:.15s}
+.seat.free{background:rgba(48,209,88,.2);color:var(--grn);border:1px solid rgba(48,209,88,.3)}
+.seat.free:hover{background:rgba(48,209,88,.5);transform:scale(1.12)}
+.seat.booked{background:rgba(255,255,255,.04);color:#333;cursor:not-allowed}
+.seat.sel{background:var(--gold);color:#000;transform:scale(1.1)}
+.seat.vipf{background:rgba(255,214,10,.14);color:var(--gold);border:1px solid rgba(255,214,10,.28)}
+.seat.vipf.sel{background:var(--gold);color:#000}
+.leg{display:flex;gap:14px;justify-content:center;margin:14px 0;flex-wrap:wrap}
+.li{display:flex;align-items:center;gap:5px;font-size:.78em;color:var(--muted)}
+.ld{width:13px;height:13px;border-radius:3px}
+.selbox{background:rgba(255,214,10,.07);border:1px solid rgba(255,214,10,.2);border-radius:9px;padding:13px;margin:12px 0;text-align:center}
+.seltot{font-size:1.3em;font-weight:700;color:var(--gold)}
+.tcard{background:var(--card);border-left:4px solid var(--red);border-radius:11px;padding:18px;margin-bottom:11px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.tcard.cancelled{opacity:.4;border-left-color:#444}
+.tinfo h4{color:var(--gold);margin-bottom:5px;font-size:1em}
+.tinfo p{font-size:.83em;color:var(--muted);line-height:1.7}
+.tcode{font-family:monospace;font-size:.82em;color:var(--red);background:rgba(255,45,85,.1);padding:3px 9px;border-radius:5px;display:inline-block;margin-top:4px}
+.ov{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:200;display:none;align-items:center;justify-content:center;padding:16px}
+.ov.on{display:flex}
+.modal{background:var(--sur);border:1px solid var(--brd);border-radius:18px;padding:28px;width:100%;max-width:540px;max-height:90vh;overflow-y:auto;position:relative}
+.modal h2{font-family:var(--head);font-size:1.7em;letter-spacing:2px;margin-bottom:18px}
+.mc{position:absolute;top:14px;right:16px;background:transparent;border:none;color:var(--muted);font-size:1.4em;cursor:pointer}
+.mc:hover{color:var(--red)}
+.fg{margin-bottom:13px}
+.fg label{display:block;color:var(--muted);font-size:.8em;margin-bottom:4px;font-weight:500}
+.fg input,.fg select,.fg textarea{width:100%;padding:10px 13px;background:rgba(255,255,255,.04);border:1px solid var(--brd);color:var(--txt);border-radius:9px;font-family:var(--font);font-size:.92em;transition:.2s}
+.fg input:focus,.fg select:focus,.fg textarea:focus{outline:none;border-color:var(--red)}
+.fg select option{background:#1a1a2e}
+.mm{padding:9px 13px;border-radius:7px;margin-bottom:12px;font-size:.88em}
+.mm.ok{background:rgba(48,209,88,.1);color:var(--grn);border:1px solid rgba(48,209,88,.2)}
+.mm.err{background:rgba(255,45,85,.1);color:var(--red);border:1px solid rgba(255,45,85,.2)}
+.statgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px;margin-bottom:26px}
+.sbox{background:var(--card);border:1px solid var(--brd);border-radius:12px;padding:18px;text-align:center}
+.snum{font-family:var(--head);font-size:2.2em;letter-spacing:1px}
+.slbl{color:var(--muted);font-size:.78em;margin-top:3px}
+.sbox:nth-child(1) .snum{color:var(--blue)}.sbox:nth-child(2) .snum{color:var(--red)}
+.sbox:nth-child(3) .snum{color:var(--gold)}.sbox:nth-child(4) .snum{color:var(--grn)}
+.sbox:nth-child(5) .snum{color:#af52de}
+.atbl{width:100%;border-collapse:collapse;font-size:.83em}
+.atbl th{padding:10px;text-align:left;color:var(--muted);border-bottom:1px solid var(--brd)}
+.atbl td{padding:9px 10px;border-bottom:1px solid var(--brd);vertical-align:middle}
+.asec{margin-bottom:32px}
+.pdrop{width:100%;height:130px;background:var(--card);border:2px dashed var(--brd);border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:.2s;overflow:hidden;margin-bottom:6px}
+.pdrop:hover{border-color:var(--red)}
+.pdrop img{width:100%;height:100%;object-fit:cover;border-radius:8px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.sp2{grid-column:1/-1}
+.pay-card{background:var(--card);border:1px solid var(--brd);border-radius:12px;padding:16px;margin-bottom:10px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.pay-user{font-weight:600;font-size:.95em}
+.pay-email{color:var(--muted);font-size:.8em;margin-top:2px}
+.pay-bal{color:var(--grn);font-weight:700;font-size:1.1em}
+#toast{position:fixed;bottom:28px;right:28px;z-index:999;background:var(--card);border:1px solid var(--brd);padding:13px 18px;border-radius:11px;font-size:.88em;transform:translateY(70px);opacity:0;transition:.3s;max-width:340px}
+#toast.show{transform:translateY(0);opacity:1}
+#toast.ok{border-left:3px solid var(--grn)}
+#toast.err{border-left:3px solid var(--red)}
+#toast.info{border-left:3px solid var(--blue)}
+.pill-active{background:rgba(48,209,88,.12);color:var(--grn);padding:2px 8px;border-radius:20px;font-size:.75em}
+.pill-cancel{background:rgba(255,255,255,.06);color:var(--muted);padding:2px 8px;border-radius:20px;font-size:.75em}
+@media(max-width:580px){header{padding:0 14px}.hero{padding:38px 14px 28px}main{padding:18px 12px}.grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}.seat{width:26px;height:26px;font-size:.55em}.g2{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">CoreI9<small>CINEMA</small></div>
+  <nav>
+    <button class="nbtn" onclick="goTab('movies')">🎬 Афиша</button>
+    <button class="nbtn" onclick="goTab('sessions')">🕐 Сеанстар</button>
+    <div id="guest-nav" style="display:flex;gap:6px">
+      <button class="nbtn primary" onclick="openM('m-login')">Кіру</button>
+      <button class="nbtn" onclick="openM('m-reg')">Тіркелу</button>
+    </div>
+    <div id="user-nav" style="display:none;align-items:center;gap:8px">
+      <span id="username-show"></span>
+      <span class="balance-badge" id="balance-show" style="display:none"></span>
+      <button class="nbtn" onclick="goTab('tickets')">Билеттер</button>
+      <button class="nbtn" onclick="doLogout()">Шығу</button>
+    </div>
+  </nav>
+</header>
+
+<div class="hero">
+  <h1>CINEMA COREI9</h1>
+  <p>Алматының үздік кинотеатры &bull; CoreI9 командасы &bull; 2025</p>
+  <div class="srow">
+    <input id="q-search" type="text" placeholder="Фильм атауы..." oninput="filterMovies()">
+    <select id="q-genre" onchange="filterMovies()"><option value="">Барлық жанрлар</option></select>
+    <input id="q-date" type="date" onchange="loadSessions()">
+  </div>
+</div>
+
+<main>
+  <div class="tabs">
+    <button class="tab on" id="t-movies"   onclick="goTab('movies')">Афиша</button>
+    <button class="tab"    id="t-sessions" onclick="goTab('sessions')">Сеанстар</button>
+    <button class="tab"    id="t-tickets"  onclick="goTab('tickets')">Менің билеттерім</button>
+  </div>
+
+  <div class="page on" id="p-movies">
+    <div class="stitle">Кино афишасы</div>
+    <div class="grid" id="movies-grid"><p style="color:var(--muted)">Жүктелуде...</p></div>
+  </div>
+
+  <div class="page" id="p-sessions">
+    <div class="stitle">Сеанстар</div>
+    <div class="sgrid" id="sessions-grid"><p style="color:var(--muted)">Жүктелуде...</p></div>
+  </div>
+
+  <div class="page" id="p-tickets">
+    <div class="stitle">Менің билеттерім</div>
+    <div id="tickets-list"></div>
+  </div>
+
+  <div class="page" id="p-admin">
+    <div class="stitle">Админ панель</div>
+    <div class="statgrid" id="admin-stats"></div>
+
+    <!-- ФИЛЬМДЕР -->
+    <div class="asec">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+        <div class="stitle" style="margin:0;font-size:1.2em">Фильмдер</div>
+        <button class="btn btn-red btn-sm" onclick="openM('m-add-movie')">+ Фильм қосу</button>
+      </div>
+      <div style="overflow-x:auto">
+        <table class="atbl">
+          <thead><tr><th>Постер</th><th>Атауы</th><th>Жанр</th><th>Ұзақтық</th><th>Рейтинг</th><th>Жас</th><th>Фото жүктеу</th><th>Өңдеу</th><th>Өшіру</th></tr></thead>
+          <tbody id="adm-movies"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- СЕАНСТАР -->
+    <div class="asec">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+        <div class="stitle" style="margin:0;font-size:1.2em">Сеанстар</div>
+        <button class="btn btn-red btn-sm" onclick="openM('m-add-sess')">+ Сеанс қосу</button>
+      </div>
+      <div style="overflow-x:auto">
+        <table class="atbl">
+          <thead><tr><th>Фильм</th><th>Зал</th><th>Уақыт</th><th>Баға</th><th>Бос</th><th>Өшіру</th></tr></thead>
+          <tbody id="adm-sessions"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ОПЛАТА — ПАЙДАЛАНУШЫЛАРҒА АҚШ ЖІБЕРУ -->
+    <div class="asec">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+        <div class="stitle" style="margin:0;font-size:1.2em">💳 Оплата жүйесі</div>
+        <button class="btn btn-grn btn-sm" onclick="openM('m-payment')">+ Ақша жіберу</button>
+      </div>
+      <div id="users-payment-list"><p style="color:var(--muted);font-size:.88em">Жүктелуде...</p></div>
+    </div>
+
+    <!-- ТӨЛЕМ ТАРИХЫ -->
+    <div class="asec">
+      <div class="stitle" style="font-size:1.2em">📋 Төлем тарихы</div>
+      <div style="overflow-x:auto">
+        <table class="atbl">
+          <thead><tr><th>Күні</th><th>Пайдаланушы</th><th>Сома</th><th>Ескертпе</th><th>Кім жіберді</th></tr></thead>
+          <tbody id="adm-payments"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- БАРЛЫҚ БИЛЕТТЕР -->
+    <div class="asec">
+      <div class="stitle" style="font-size:1.2em">Барлық билеттер</div>
+      <div style="overflow-x:auto">
+        <table class="atbl">
+          <thead><tr><th>Код</th><th>Пайдаланушы</th><th>Фильм</th><th>Орын</th><th>Зал</th><th>Уақыт</th><th>Баға</th><th>Күйі</th></tr></thead>
+          <tbody id="adm-tickets"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- LOGIN MODAL -->
+<div class="ov" id="m-login">
+<div class="modal">
+  <button class="mc" onclick="closeM('m-login')">&#x2715;</button>
+  <h2>КІРУ</h2>
+  <div id="login-msg"></div>
+  <div class="fg"><label>Email</label><input id="l-email" type="email" placeholder="email@mail.kz"></div>
+  <div class="fg"><label>Пароль</label><input id="l-pass" type="password" placeholder="123456"></div>
+  <button class="btn btn-red" style="width:100%" onclick="doLogin()">Кіру</button>
+  <p style="text-align:center;margin-top:8px;font-size:.82em">
+    Тіркелмедіңіз бе? <a style="color:var(--red);cursor:pointer" onclick="closeM('m-login');openM('m-reg')">Тіркелу</a>
+  </p>
+</div></div>
+
+<!-- REGISTER MODAL -->
+<div class="ov" id="m-reg">
+<div class="modal">
+  <button class="mc" onclick="closeM('m-reg')">&#x2715;</button>
+  <h2>ТІРКЕЛУ</h2>
+  <div id="reg-msg"></div>
+  <div class="fg"><label>Аты-жөніңіз</label><input id="r-name" type="text" placeholder="Асель Нұрова"></div>
+  <div class="fg"><label>Email</label><input id="r-email" type="email" placeholder="email@mail.kz"></div>
+  <div class="fg"><label>Пароль (кемінде 6 символ)</label><input id="r-pass" type="password" placeholder="123456"></div>
+  <button class="btn btn-red" style="width:100%" onclick="doRegister()">Тіркелу</button>
+</div></div>
+
+<!-- SEATS MODAL -->
+<div class="ov" id="m-seats">
+<div class="modal" style="max-width:680px">
+  <button class="mc" onclick="closeM('m-seats')">&#x2715;</button>
+  <h2 id="seats-title">ОРЫН ТАҢДАҢЫЗ</h2>
+  <div id="seats-msg"></div>
+  <div id="seats-info" style="color:var(--muted);font-size:.86em;margin-bottom:14px"></div>
+  <div class="screen">— ЭКРАН —</div>
+  <div class="leg">
+    <div class="li"><div class="ld" style="background:rgba(48,209,88,.4)"></div>Бос</div>
+    <div class="li"><div class="ld" style="background:rgba(255,255,255,.05)"></div>Брондалған</div>
+    <div class="li"><div class="ld" style="background:var(--gold)"></div>Таңдалды</div>
+    <div class="li"><div class="ld" style="background:rgba(255,214,10,.2)"></div>VIP</div>
+  </div>
+  <div class="seatgrid" id="seat-grid"></div>
+  <div class="selbox" id="selbox" style="display:none">
+    <div>Таңдалды: <b id="sellabels"></b></div>
+    <div class="seltot" id="seltot"></div>
+  </div>
+  <button class="btn btn-gold" style="width:100%;margin-top:10px;font-size:1em" onclick="doBuy()">🎫 Билет сатып алу</button>
+</div></div>
+
+<!-- MOVIE DETAIL MODAL -->
+<div class="ov" id="m-movie">
+<div class="modal" style="max-width:620px">
+  <button class="mc" onclick="closeM('m-movie')">&#x2715;</button>
+  <div id="movie-detail"></div>
+</div></div>
+
+<!-- ADD MOVIE MODAL -->
+<div class="ov" id="m-add-movie">
+<div class="modal">
+  <button class="mc" onclick="closeM('m-add-movie')">&#x2715;</button>
+  <h2>ФИЛЬМ ҚОСУ</h2>
+  <div id="add-movie-msg"></div>
+  <div class="fg">
+    <label>Постер фотосы</label>
+    <div class="pdrop" id="pdrop" onclick="document.getElementById('am-photo').click()">
+      <div id="pdrop-txt">
+        <div style="font-size:2em;margin-bottom:6px">📷</div>
+        <div style="font-size:.82em;color:var(--muted)">Фото таңдау үшін басыңыз</div>
+        <div style="font-size:.72em;color:var(--muted);margin-top:4px">JPG, PNG, WebP — макс 5MB</div>
+      </div>
+    </div>
+    <input type="file" id="am-photo" accept="image/*" style="display:none" onchange="previewPhoto(this)">
+  </div>
+  <div class="g2">
+    <div class="fg sp2"><label>Атауы</label><input id="am-title" placeholder="Фильм атауы"></div>
+    <div class="fg">
+      <label>Жанры</label>
+      <select id="am-genre">
+        <option>Боевик</option><option>Ғылыми фантастика</option><option>Драма</option>
+        <option>Тарихи</option><option>Мультфильм</option><option>Триллер</option>
+        <option>Қорқынышты</option><option>Комедия</option><option>Апаттық</option>
+        <option>Детектив</option><option>Супергерой</option><option>Соғыс</option>
+      </select>
+    </div>
+    <div class="fg"><label>Ұзақтығы (мин)</label><input id="am-dur" type="number" placeholder="120"></div>
+    <div class="fg"><label>Рейтинг (0-10)</label><input id="am-rating" type="number" step="0.1" placeholder="7.5"></div>
+    <div class="fg"><label>Жыл</label><input id="am-year" type="number" placeholder="2025"></div>
+    <div class="fg"><label>Жас шегі</label>
+      <select id="am-age"><option>0+</option><option>6+</option><option>12+</option><option>16+</option><option>18+</option></select>
+    </div>
+    <div class="fg"><label>Эмодзи (жоқ болса)</label><input id="am-emoji" placeholder="🎬"></div>
+    <div class="fg"><label>Режиссер</label><input id="am-dir" placeholder="Аты-жөні"></div>
+    <div class="fg sp2"><label>Сипаттама</label><input id="am-desc" placeholder="Фильм туралы..."></div>
+  </div>
+  <button class="btn btn-red" style="width:100%;margin-top:6px" onclick="addMovie()">Қосу</button>
+</div></div>
+
+<!-- EDIT MOVIE MODAL -->
+<div class="ov" id="m-edit-movie">
+<div class="modal">
+  <button class="mc" onclick="closeM('m-edit-movie')">&#x2715;</button>
+  <h2>✏️ ФИЛЬМДІ ӨҢДЕУ</h2>
+  <div id="edit-movie-msg"></div>
+  <div class="g2">
+    <div class="fg sp2"><label>Атауы</label><input id="em-title" placeholder="Фильм атауы"></div>
+    <div class="fg">
+      <label>Жанры</label>
+      <select id="em-genre">
+        <option>Боевик</option><option>Ғылыми фантастика</option><option>Драма</option>
+        <option>Тарихи</option><option>Мультфильм</option><option>Триллер</option>
+        <option>Қорқынышты</option><option>Комедия</option><option>Апаттық</option>
+        <option>Детектив</option><option>Супергерой</option><option>Соғыс</option>
+      </select>
+    </div>
+    <div class="fg"><label>Ұзақтығы (мин)</label><input id="em-dur" type="number" placeholder="120"></div>
+    <div class="fg"><label>Рейтинг (0-10)</label><input id="em-rating" type="number" step="0.1" placeholder="7.5"></div>
+    <div class="fg"><label>Жыл</label><input id="em-year" type="number" placeholder="2025"></div>
+    <div class="fg"><label>Жас шегі</label>
+      <select id="em-age"><option>0+</option><option>6+</option><option>12+</option><option>16+</option><option>18+</option></select>
+    </div>
+    <div class="fg"><label>Эмодзи</label><input id="em-emoji" placeholder="🎬"></div>
+    <div class="fg"><label>Режиссер</label><input id="em-dir" placeholder="Аты-жөні"></div>
+    <div class="fg sp2"><label>Сипаттама</label><textarea id="em-desc" rows="3" style="width:100%;background:var(--bg);border:1px solid var(--brd);border-radius:8px;padding:8px;color:var(--fg);font-family:inherit;font-size:.9em;resize:vertical" placeholder="Фильм туралы..."></textarea></div>
+  </div>
+  <input type="hidden" id="em-id">
+  <button class="btn btn-red" style="width:100%;margin-top:6px" onclick="saveEditMovie()">💾 Сақтау</button>
+</div></div>
+
+<!-- ADD SESSION MODAL -->
+<div class="ov" id="m-add-sess">
+<div class="modal">
+  <button class="mc" onclick="closeM('m-add-sess')">&#x2715;</button>
+  <h2>СЕАНС ҚОСУ</h2>
+  <div id="add-sess-msg"></div>
+  <div class="fg"><label>Фильм</label><select id="as-movie" style="width:100%"></select></div>
+  <div class="fg"><label>Зал</label>
+    <select id="as-hall">
+      <option value="1">Зал 1 — IMAX (8x10)</option>
+      <option value="2">Зал 2 — Стандарт (7x9)</option>
+      <option value="3">Зал 3 — VIP (5x8)</option>
+      <option value="4">Зал 4 — 4DX (6x10)</option>
+    </select>
+  </div>
+  <div class="fg"><label>Күн мен уақыт</label><input id="as-dt" type="datetime-local"></div>
+  <div class="fg"><label>Билет бағасы (тг)</label><input id="as-price" type="number" placeholder="1500"></div>
+  <button class="btn btn-red" style="width:100%;margin-top:6px" onclick="addSession()">Сеанс жасау</button>
+</div></div>
+
+<!-- EDIT SESSION MODAL — СЕАНСТЫ ӨҢДЕУ -->
+<div class="ov" id="m-edit-sess">
+<div class="modal">
+  <button class="mc" onclick="closeM('m-edit-sess')">&#x2715;</button>
+  <h2>СЕАНСТЫ ӨҢДЕУ</h2>
+  <input type="hidden" id="edit-sess-id">
+  <div id="edit-sess-msg"></div>
+  <div class="fg"><label>Фильм</label><select id="edit-sess-movie" style="width:100%"></select></div>
+  <div class="fg"><label>Зал</label><select id="edit-sess-hall" style="width:100%"></select></div>
+  <div class="fg"><label>Күн мен уақыт</label><input id="edit-sess-dt" type="datetime-local"></div>
+  <div class="fg"><label>Билет бағасы (тг)</label><input id="edit-sess-price" type="number" placeholder="1500"></div>
+  <button class="btn btn-red" style="width:100%;margin-top:6px" onclick="saveEditSession()">Сақтау</button>
+</div></div>
+
+<!-- PAYMENT MODAL — ПАЙДАЛАНУШЫҒА АҚШ ЖІБЕРУ -->
+<div class="ov" id="m-payment">
+<div class="modal">
+  <button class="mc" onclick="closeM('m-payment')">&#x2715;</button>
+  <h2>💳 АҚШ ЖІБЕРУ</h2>
+  <div id="payment-msg"></div>
+  <div class="fg">
+    <label>Пайдаланушы</label>
+    <select id="pay-user" style="width:100%">
+      <option value="">— Таңдаңыз —</option>
+    </select>
+  </div>
+  <div id="pay-cur-balance" style="color:var(--muted);font-size:.85em;margin:-6px 0 12px;min-height:20px"></div>
+  <div class="fg">
+    <label>Сома (тг)</label>
+    <input id="pay-amount" type="number" min="1" placeholder="1000">
+  </div>
+  <div class="fg">
+    <label>Ескертпе (міндетті емес)</label>
+    <input id="pay-note" type="text" placeholder="Бонус, қайтарым...">
+  </div>
+  <button class="btn btn-grn" style="width:100%;margin-top:6px" onclick="doPayment()">✅ Жіберу</button>
+</div></div>
+
+<div id="toast"></div>
+
+<script>
+var me = null;
+var allMovies = [];
+var curSess = null;
+var selSeats = [];
+var photoData = null;
+var photoMime = null;
+var adminUsers = [];
+
+window.addEventListener('DOMContentLoaded', function() {
+  checkAuth(function() {
+    loadMovies();
+    loadGenres();
+    document.getElementById('q-date').value = new Date().toISOString().split('T')[0];
+    loadSessions();
+    if (location.hash === '#admin' || location.search === '?admin') {
+      setTimeout(showAdminPage, 600);
+    }
+  });
+  document.querySelectorAll('.ov').forEach(function(o) {
+    o.addEventListener('click', function(e) { if (e.target === o) o.classList.remove('on'); });
+  });
+  // Секретный код ADMIN
+  var seq = [65,68,77,73,78], si = 0;
+  document.addEventListener('keydown', function(e) {
+    if (e.keyCode === seq[si]) { si++; if (si === seq.length) { si=0; showAdminPage(); } } else si=0;
+  });
+});
+
+// ── NAV ──
+function goTab(name) {
+  document.querySelectorAll('.page').forEach(function(p){p.classList.remove('on');});
+  document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('on');});
+  var pg = document.getElementById('p-'+name);
+  var tb = document.getElementById('t-'+name);
+  if(pg) pg.classList.add('on');
+  if(tb) tb.classList.add('on');
+  if(name==='tickets') loadMyTickets();
+  if(name==='sessions') loadSessions();
+}
+
+function showAdminPage() {
+  if (!me || me.role !== 'admin') { toast('Рұқсат жоқ','err'); return; }
+  document.querySelectorAll('.page').forEach(function(p){p.classList.remove('on');});
+  document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('on');});
+  document.getElementById('p-admin').classList.add('on');
+  loadAdminAll();
+}
+
+// ── AUTH ──
+function checkAuth(cb) {
+  apiCall('GET','/auth/me',null,function(r){
+    if(r && r.id){ me=r; updateNav(); }
+    if(cb) cb();
+  });
+}
+
+function updateNav() {
+  if(me){
+    document.getElementById('guest-nav').style.display='none';
+    var un=document.getElementById('user-nav');
+    un.style.display='flex'; un.style.alignItems='center';
+    document.getElementById('username-show').textContent='👤 '+me.name;
+    var balEl = document.getElementById('balance-show');
+    if(me.role !== 'admin'){
+      balEl.style.display='inline';
+      balEl.textContent='💰 '+(me.balance||0).toLocaleString()+' тг';
+    } else {
+      balEl.style.display='none';
+    }
+  } else {
+    document.getElementById('guest-nav').style.display='flex';
+    document.getElementById('user-nav').style.display='none';
+  }
+}
+
+function doLogin() {
+  apiCall('POST','/auth/login',{email:V('l-email'),password:V('l-pass')},function(r){
+    if(r && r.user){ me=r.user; updateNav(); closeM('m-login'); toast(r.message,'ok'); }
+    else showMsg('login-msg',(r&&r.error)||'Қате','err');
+  });
+}
+
+function doRegister() {
+  apiCall('POST','/auth/register',{name:V('r-name'),email:V('r-email'),password:V('r-pass')},function(r){
+    if(r && r.userId){
+      showMsg('reg-msg','Тіркелу сәтті!','ok');
+      setTimeout(function(){ closeM('m-reg'); openM('m-login'); },1500);
+    } else {
+      showMsg('reg-msg',(r&&r.errors&&r.errors[0]&&r.errors[0].msg)||(r&&r.error)||'Қате','err');
+    }
+  });
+}
+
+function doLogout() {
+  apiCall('POST','/auth/logout',null,function(){
+    me=null; updateNav(); goTab('movies'); toast('Жүйеден шықтыңыз','info');
+  });
+}
+
+// ── MOVIES ──
+function loadMovies() {
+  apiCall('GET','/movies',null,function(d){
+    allMovies=(d&&d.movies)||[];
+    renderMovies(allMovies);
+  });
+}
+
+function renderMovies(list) {
+  var g=document.getElementById('movies-grid');
+  if(!list.length){ g.innerHTML='<p style="color:var(--muted)">Фильм табылмады</p>'; return; }
+  var html='';
+  for(var i=0;i<list.length;i++){
+    var m=list[i];
+    // FIX: timestamp-ті URL-ге қосу (cache bypass) — суреттер бірден көрінеді
+    var posterHtml;
+    if(m.poster_url){
+      var src = m.poster_url + '?v=' + (m.updated_at ? new Date(m.updated_at).getTime() : Date.now());
+      posterHtml = '<img src="'+src+'" alt="'+esc(m.title)+'" onerror="this.parentNode.innerHTML=\''+(m.emoji||'🎬')+'\'">';
+    } else {
+      posterHtml = m.emoji||'🎬';
+    }
+    html+='<div class="card" data-mid="'+m.id+'">'
+      +'<div class="cposter">'+posterHtml+'</div>'
+      +'<div class="cbody">'
+        +'<div class="ctitle">'+esc(m.title)+'</div>'
+        +'<div class="cmeta"><span class="badge bg">'+esc(m.genre)+'</span><span class="badge ba">'+(m.age_limit||'12+')+'</span></div>'
+        +'<div class="rat">★ '+(m.rating||'—')+' &middot; '+m.duration+' мин</div>'
+        +'<button class="btn btn-red btn-sm" style="width:100%" data-sid="'+m.id+'">Сеанстар</button>'
+      +'</div>'
+    +'</div>';
+  }
+  g.innerHTML=html;
+  g.querySelectorAll('.card').forEach(function(el){
+    var mid=parseInt(el.getAttribute('data-mid'));
+    el.addEventListener('click',function(){ openMovieDetail(mid); });
+    var btn=el.querySelector('button');
+    if(btn) btn.addEventListener('click',function(e){ e.stopPropagation(); viewMovieSess(mid); });
+  });
+}
+
+function loadGenres() {
+  apiCall('GET','/movies/genres',null,function(g){
+    var sel=document.getElementById('q-genre');
+    (g||[]).forEach(function(gn){
+      var o=document.createElement('option'); o.value=gn; o.textContent=gn; sel.appendChild(o);
+    });
+  });
+}
+
+function filterMovies() {
+  var q=V('q-search').toLowerCase(), g=V('q-genre');
+  renderMovies(allMovies.filter(function(m){
+    return (!q||m.title.toLowerCase().indexOf(q)>=0)&&(!g||m.genre===g);
+  }));
+}
+
+function openMovieDetail(id) {
+  apiCall('GET','/movies/'+id,null,function(m){
+    if(!m) return;
+    var posterHtml;
+    if(m.poster_url){
+      var src = m.poster_url + '?v=' + (m.updated_at ? new Date(m.updated_at).getTime() : 1)
+      posterHtml = '<img src="'+src+'" style="width:200px;height:280px;object-fit:cover;border-radius:12px;border:2px solid var(--brd)" onerror="this.outerHTML=\'<div style=font-size:5em>'+(m.emoji||'🎬')+'</div>\'">';
+    } else {
+      posterHtml = '<div style="font-size:5em">'+(m.emoji||'🎬')+'</div>';
+    }
+    var sh='';
+    if(m.sessions&&m.sessions.length){
+      for(var i=0;i<m.sessions.length;i++){
+        var s=m.sessions[i];
+        sh+='<div style="background:var(--card);border:1px solid var(--brd);border-radius:9px;padding:12px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:8px">'
+          +'<div><div style="font-weight:600">'+fmtDT(s.date_time)+'</div>'
+          +'<div style="color:var(--muted);font-size:.82em">'+(s.hall_name||s.hall)+' &middot; Бос: '+s.free_seats+'</div></div>'
+          +'<div style="display:flex;align-items:center;gap:10px">'
+          +'<span style="color:var(--gold);font-weight:700">'+s.price+' тг</span>'
+          +'<button class="btn btn-red btn-sm" data-dsid="'+s.id+'">Орын таңдау</button>'
+          +'</div></div>';
+      }
+    } else { sh='<p style="color:var(--muted)">Сеанс жоқ</p>'; }
+    document.getElementById('movie-detail').innerHTML=
+      '<div style="text-align:center;margin-bottom:16px">'+posterHtml+'</div>'
+      +'<h2 style="font-family:var(--head);font-size:1.7em;letter-spacing:2px">'+esc(m.title)+'</h2>'
+      +'<div style="display:flex;gap:7px;flex-wrap:wrap;margin:10px 0">'
+        +'<span class="badge bg">'+esc(m.genre)+'</span>'
+        +'<span class="badge ba">'+m.age_limit+'</span>'
+        +'<span style="color:var(--gold);font-size:.86em">★ '+m.rating+'</span>'
+        +'<span style="color:var(--muted);font-size:.86em">'+m.duration+' мин &middot; '+m.year+'</span>'
+      +'</div>'
+      +(m.description?'<p style="color:var(--muted);margin-bottom:12px;line-height:1.7">'+esc(m.description)+'</p>':'')
+      +(m.director?'<p style="font-size:.86em"><span style="color:var(--muted)">Режиссер:</span> '+esc(m.director)+'</p>':'')
+      +'<h3 style="font-family:var(--head);margin:18px 0 10px;letter-spacing:1px">СЕАНСТАР</h3>'
+      +'<div>'+sh+'</div>';
+    document.getElementById('movie-detail').querySelectorAll('[data-dsid]').forEach(function(btn){
+      var sid=parseInt(btn.getAttribute('data-dsid'));
+      btn.addEventListener('click',function(){ closeM('m-movie'); openSeats(sid); });
+    });
+    openM('m-movie');
+  });
+}
+
+function viewMovieSess(id) {
+  document.getElementById('q-date').value='';
+  goTab('sessions');
+  apiCall('GET','/sessions?movie_id='+id,null,function(d){ renderSessions((d&&d.sessions)||[]); });
+}
+
+// ── SESSIONS ──
+function loadSessions() {
+  var date=V('q-date');
+  apiCall('GET','/sessions'+(date?'?date='+date:''),null,function(d){ renderSessions((d&&d.sessions)||[]); });
+}
+
+function renderSessions(list) {
+  var g=document.getElementById('sessions-grid');
+  if(!list.length){ g.innerHTML='<p style="color:var(--muted)">Сеанс табылмады</p>'; return; }
+  var html='';
+  for(var i=0;i<list.length;i++){
+    var s=list[i];
+    var hb='';
+    if(s.hall_type==='imax') hb='<span class="badge" style="background:rgba(10,132,255,.2);color:var(--blue)">IMAX</span>';
+    else if(s.hall_type==='vip') hb='<span class="badge bv">VIP</span>';
+    else if(s.hall_type==='4dx') hb='<span class="badge bh">4DX</span>';
+    html+='<div class="sc">'
+      +'<div style="font-size:2.3em;margin-bottom:7px">'+(s.emoji||'🎬')+'</div>'
+      +'<div style="font-weight:700;font-size:1.05em;margin-bottom:4px">'+esc(s.movie_title)+'</div>'
+      +'<div class="cmeta" style="margin:6px 0"><span class="badge bg">'+esc(s.genre)+'</span>'+hb+'<span class="badge ba">'+(s.age_limit||'12+')+'</span></div>'
+      +'<div style="color:var(--muted);font-size:.85em;line-height:1.9">'
+        +'📅 <b style="color:var(--txt)">'+fmtDT(s.date_time)+'</b><br>'
+        +'🏛 '+esc(s.hall_name)+'<br>'
+        +'⏱ '+s.duration+' мин'
+      +'</div>'
+      +'<div class="sprice">'+(s.price||0).toLocaleString()+' тг</div>'
+      +'<div class="sfree">Бос: '+s.free_seats+' / '+s.total_seats+'</div>'
+      +'<button class="btn btn-red" style="width:100%;margin-top:10px" data-ssid="'+s.id+'">Орын таңдау</button>'
+    +'</div>';
+  }
+  g.innerHTML=html;
+  g.querySelectorAll('[data-ssid]').forEach(function(btn){
+    var sid=parseInt(btn.getAttribute('data-ssid'));
+    btn.addEventListener('click',function(){ openSeats(sid); });
+  });
+}
+
+// ── SEATS ──
+function openSeats(sessId) {
+  if(!me){ openM('m-login'); toast('Алдымен кіріңіз','err'); return; }
+  selSeats=[];
+  document.getElementById('seats-msg').innerHTML='';
+  document.getElementById('selbox').style.display='none';
+  apiCall('GET','/sessions/'+sessId+'/seats',null,function(d){
+    if(!d||!d.session) return;
+    curSess=d.session;
+    document.getElementById('seats-title').textContent=(d.session.emoji||'🎬')+' '+d.session.movie_title;
+    document.getElementById('seats-info').innerHTML=
+      '📅 '+fmtDT(d.session.date_time)+
+      ' &nbsp;·&nbsp; 🏛 '+d.session.hall_name+
+      ' &nbsp;·&nbsp; '+d.session.price+' тг/орын';
+    var grid=document.getElementById('seat-grid');
+    grid.innerHTML='';
+    var rows=d.seatMap;
+    Object.keys(rows).forEach(function(row){
+      var seats=rows[row];
+      var rd=document.createElement('div'); rd.className='seatrow';
+      var lb=document.createElement('div'); lb.className='rlbl'; lb.textContent=row;
+      rd.appendChild(lb);
+      seats.forEach(function(s){
+        var el=document.createElement('button');
+        var isVip=s.seat_type==='vip';
+        el.className='seat '+(s.is_booked?'booked':(isVip?'vipf':'free'));
+        el.textContent=(s.seat_label||'').slice(1)||s.col||'';
+        el.title=(s.seat_label||'')+' ('+(s.seat_type||'')+')';
+        if(!s.is_booked){
+          (function(seat,elem){
+            elem.addEventListener('click',function(){ toggleSeat(elem,seat); });
+          })(s,el);
+        }
+        rd.appendChild(el);
+      });
+      grid.appendChild(rd);
+    });
+    openM('m-seats');
+  });
+}
+
+function toggleSeat(el,seat) {
+  var idx=-1;
+  for(var i=0;i<selSeats.length;i++){ if(selSeats[i].id===seat.id){ idx=i; break; } }
+  if(idx>=0){
+    selSeats.splice(idx,1);
+    el.classList.remove('sel');
+    el.classList.add(seat.seat_type==='vip'?'vipf':'free');
+  } else {
+    if(selSeats.length>=8){ toast('Ең көбі 8 орын','err'); return; }
+    selSeats.push({id:seat.id,label:seat.seat_label});
+    el.classList.add('sel');
+  }
+  var box=document.getElementById('selbox');
+  if(selSeats.length){
+    box.style.display='block';
+    document.getElementById('sellabels').textContent=selSeats.map(function(s){return s.label;}).join(', ');
+    document.getElementById('seltot').textContent='Жалпы: '+(selSeats.length*curSess.price).toLocaleString()+' тг';
+  } else { box.style.display='none'; }
+}
+
+function doBuy() {
+  if(!selSeats.length){ showMsg('seats-msg','Орын таңдаңыз!','err'); return; }
+  apiCall('POST','/tickets/book',{session_id:curSess.id,seat_ids:selSeats.map(function(s){return s.id;})},function(r){
+    if(r&&r.tickets){
+      closeM('m-seats');
+      toast('Билет сәтті сатып алынды! Жалпы: '+r.totalPrice.toLocaleString()+' тг','ok');
+      if(r.newBalance!==undefined){
+        var balEl=document.getElementById('balance-show');
+        if(balEl){ balEl.textContent='💰 '+r.newBalance.toLocaleString()+' тг'; balEl.style.display=''; }
+      }
+      goTab('tickets');
+    }
+    else showMsg('seats-msg',(r&&r.error)||'Қате','err');
+  });
+}
+
+// ── MY TICKETS ──
+function loadMyTickets() {
+  var box=document.getElementById('tickets-list');
+  if(!me){ box.innerHTML='<p style="color:var(--muted)">Алдымен кіріңіз</p>'; return; }
+  apiCall('GET','/tickets/my',null,function(d){
+    var list=(d&&d.tickets)||[];
+    if(!list.length){ box.innerHTML='<p style="color:var(--muted)">Сізде әлі билет жоқ</p>'; return; }
+    var html='';
+    for(var i=0;i<list.length;i++){
+      var t=list[i];
+      html+='<div class="tcard'+(t.status==='cancelled'?' cancelled':'')+'">'
+        +'<div style="font-size:2em">'+(t.emoji||'🎬')+'</div>'
+        +'<div class="tinfo" style="flex:1">'
+          +'<h4>'+esc(t.movie_title)+'</h4>'
+          +'<p>'+fmtDT(t.date_time)+' &middot; '+esc(t.hall_name)+'</p>'
+          +'<p>Орын: <b>'+t.seat_label+'</b> &middot; '+t.price+' тг</p>'
+          +'<p>Күйі: '+(t.status==='active'?'<span class="pill-active">✅ Белсенді</span>':'<span class="pill-cancel">❌ Болдырмаланған</span>')+'</p>'
+          +'<div class="tcode">'+t.code+'</div>'
+        +'</div>'
+        +(t.status==='active'?'<button class="btn btn-danger btn-sm" data-tid="'+t.id+'">Болдырмау</button>':'')
+      +'</div>';
+    }
+    box.innerHTML=html;
+    box.querySelectorAll('[data-tid]').forEach(function(btn){
+      var tid=parseInt(btn.getAttribute('data-tid'));
+      btn.addEventListener('click',function(){ cancelTicket(tid); });
+    });
+  });
+}
+
+function cancelTicket(id) {
+  if(!confirm('Билетті болдырмайсыз ба?')) return;
+  apiCall('DELETE','/tickets/'+id+'/cancel',null,function(r){
+    if(r&&r.message){ toast(r.message,'ok'); loadMyTickets(); }
+    else toast((r&&r.error)||'Қате','err');
+  });
+}
+
+// ── ADMIN ──
+function loadAdminAll() {
+  loadAdminStats();
+  loadAdminMovies();
+  loadAdminSessions();
+  loadAdminTickets();
+  loadAdminUsers();
+  loadAdminPayments();
+  apiCall('GET','/movies',null,function(d){
+    var sel=document.getElementById('as-movie');
+    sel.innerHTML=((d&&d.movies)||[]).map(function(m){
+      return '<option value="'+m.id+'">'+(m.emoji||'🎬')+' '+esc(m.title)+'</option>';
+    }).join('');
+  });
+}
+
+function loadAdminStats() {
+  apiCall('GET','/admin/stats',null,function(s){
+    if(!s) return;
+    document.getElementById('admin-stats').innerHTML=
+      '<div class="sbox"><div class="snum">'+s.users+'</div><div class="slbl">Пайдаланушылар</div></div>'
+      +'<div class="sbox"><div class="snum">'+s.movies+'</div><div class="slbl">Фильмдер</div></div>'
+      +'<div class="sbox"><div class="snum">'+s.sessions+'</div><div class="slbl">Сеанстар</div></div>'
+      +'<div class="sbox"><div class="snum">'+s.tickets+'</div><div class="slbl">Белсенді билеттер</div></div>'
+      +'<div class="sbox"><div class="snum">'+((s.revenue||0).toLocaleString())+'</div><div class="slbl">Кіріс (тг)</div></div>';
+  });
+}
+
+function loadAdminMovies() {
+  apiCall('GET','/movies',null,function(d){
+    var rows=(d&&d.movies)||[];
+    var html='';
+    for(var i=0;i<rows.length;i++){
+      var m=rows[i];
+      var thumb='';
+      if(m.poster_url){
+        // Cache-bypass timestamp
+        thumb='<img src="'+m.poster_url+'?v='+Date.now()+'" style="width:36px;height:48px;object-fit:cover;border-radius:4px" onerror="this.outerHTML=\'<span style=font-size:1.5em>'+(m.emoji||'🎬')+'</span>\'">';
+      } else {
+        thumb='<span style="font-size:1.5em">'+(m.emoji||'🎬')+'</span>';
+      }
+      html+='<tr>'
+        +'<td>'+thumb+'</td>'
+        +'<td style="font-weight:600">'+esc(m.title)+'</td>'
+        +'<td><span class="badge bg">'+esc(m.genre)+'</span></td>'
+        +'<td>'+m.duration+' мин</td>'
+        +'<td style="color:var(--gold)">★ '+m.rating+'</td>'
+        +'<td><span class="badge ba">'+m.age_limit+'</span></td>'
+        +'<td><label class="btn btn-ghost btn-sm" style="cursor:pointer;display:inline-block">'
+          +'📷 Жүктеу'
+          +'<input type="file" accept="image/*" style="display:none" data-upid="'+m.id+'" onchange="uploadPhoto(this)">'
+        +'</label></td>'
+        +'<td><button class="btn btn-blue btn-sm" data-editid="'+m.id+'">✏️ Өңдеу</button></td>'
+        +'<td><button class="btn btn-danger btn-sm" data-delid="'+m.id+'" data-deltitle="'+esc(m.title)+'">Өшіру</button></td>'
+      +'</tr>';
+    }
+    document.getElementById('adm-movies').innerHTML=html;
+    document.querySelectorAll('[data-delid]').forEach(function(btn){
+      btn.addEventListener('click',function(){
+        deleteMovie(parseInt(btn.getAttribute('data-delid')),btn.getAttribute('data-deltitle'));
+      });
+    });
+    document.querySelectorAll('[data-editid]').forEach(function(btn){
+      btn.addEventListener('click',function(){
+        openEditMovie(parseInt(btn.getAttribute('data-editid')));
+      });
+    });
+  });
+}
+
+function loadAdminSessions() {
+  apiCall('GET','/sessions',null,function(d){
+    var rows=(d&&d.sessions)||[];
+    var html='';
+    rows.slice(0,100).forEach(function(s){
+      html+='<tr>'
+        +'<td>'+(s.emoji||'')+' '+esc(s.movie_title)+'</td>'
+        +'<td>'+esc(s.hall_name)+'</td>'
+        +'<td>'+fmtDT(s.date_time)+'</td>'
+        +'<td style="color:var(--gold)">'+s.price+' тг</td>'
+        +'<td style="color:var(--grn)">'+s.free_seats+'</td>'
+        +'<td style="display:flex;gap:6px">'
+          +'<button class="btn btn-sm" style="background:var(--blue);color:#fff" data-editsid="'+s.id+'" data-editmid="'+s.movie_id+'" data-edithid="'+s.hall_id+'" data-editdt="'+s.date_time+'" data-editprice="'+s.price+'">өңдеу</button>'
+          +'<button class="btn btn-danger btn-sm" data-delsid="'+s.id+'">Өшіру</button>'
+        +'</td>'
+      +'</tr>';
+    });
+    document.getElementById('adm-sessions').innerHTML=html;
+    document.querySelectorAll('[data-delsid]').forEach(function(btn){
+      btn.addEventListener('click',function(){ deleteSession(parseInt(btn.getAttribute('data-delsid'))); });
+    });
+    document.querySelectorAll('[data-editsid]').forEach(function(btn){
+      btn.addEventListener('click',function(){
+        openEditSession(
+          parseInt(btn.dataset.editsid),
+          parseInt(btn.dataset.editmid),
+          parseInt(btn.dataset.edithid),
+          btn.dataset.editdt,
+          parseFloat(btn.dataset.editprice)
+        );
+      });
+    });
+  });
+}
+
+function openEditSession(sid, mid, hid, dt, price) {
+  document.getElementById('edit-sess-id').value = sid;
+  // Populate movie select
+  apiCall('GET','/movies',null,function(d){
+    var sel=document.getElementById('edit-sess-movie');
+    sel.innerHTML='';
+    (d.movies||[]).forEach(function(m){
+      var o=document.createElement('option');
+      o.value=m.id; o.textContent=m.emoji+' '+m.title;
+      if(m.id===mid) o.selected=true;
+      sel.appendChild(o);
+    });
+  });
+  // Populate hall select
+  apiCall('GET','/halls',null,function(halls){
+    var sel=document.getElementById('edit-sess-hall');
+    sel.innerHTML='';
+    (halls||[]).forEach(function(h){
+      var o=document.createElement('option');
+      o.value=h.id; o.textContent=h.name;
+      if(h.id===hid) o.selected=true;
+      sel.appendChild(o);
+    });
+  });
+  // Format datetime for input
+  var d=new Date(dt);
+  var pad=function(n){return String(n).padStart(2,'0');};
+  var local=d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())+'T'+pad(d.getHours())+':'+pad(d.getMinutes());
+  document.getElementById('edit-sess-dt').value=local;
+  document.getElementById('edit-sess-price').value=price;
+  document.getElementById('edit-sess-msg').textContent='';
+  openM('m-edit-sess');
+}
+
+function saveEditSession() {
+  var sid=document.getElementById('edit-sess-id').value;
+  var mid=document.getElementById('edit-sess-movie').value;
+  var hid=document.getElementById('edit-sess-hall').value;
+  var dt=document.getElementById('edit-sess-dt').value;
+  var price=document.getElementById('edit-sess-price').value;
+  if(!mid||!hid||!dt||!price){ showMsg('edit-sess-msg','Барлық өрістерді толтырыңыз','err'); return; }
+  apiCall('PUT','/sessions/'+sid,{movie_id:parseInt(mid),hall_id:parseInt(hid),date_time:dt,price:parseFloat(price)},function(r){
+    if(r&&r.message){ showMsg('edit-sess-msg',r.message,'ok'); setTimeout(function(){ closeM('m-edit-sess'); loadAdminSessions(); },800); }
+    else showMsg('edit-sess-msg',(r&&r.error)||'Қате','err');
+  });
+}
+
+function loadAdminTickets() {
+  apiCall('GET','/tickets/all',null,function(d){
+    var rows=(d&&d.tickets)||[];
+    document.getElementById('adm-tickets').innerHTML=rows.map(function(t){
+      return '<tr>'
+        +'<td style="font-family:monospace;color:var(--red);font-size:.78em">'+t.code+'</td>'
+        +'<td>'+esc(t.user_name)+'</td>'
+        +'<td>'+esc(t.movie_title)+'</td>'
+        +'<td>'+t.seat_label+'</td>'
+        +'<td>'+esc(t.hall_name)+'</td>'
+        +'<td>'+fmtDT(t.date_time)+'</td>'
+        +'<td style="color:var(--gold)">'+t.price+' тг</td>'
+        +'<td style="color:'+(t.status==='active'?'var(--grn)':'var(--muted)')+'">'
+          +(t.status==='active'?'✅ белсенді':'❌ болдырмаланған')
+        +'</td>'
+      +'</tr>';
+    }).join('');
+  });
+}
+
+// ── ADMIN: USERS & PAYMENTS ──
+function loadAdminUsers() {
+  apiCall('GET','/admin/users',null,function(d){
+    adminUsers=(d&&d.users)||[];
+    var box=document.getElementById('users-payment-list');
+    if(!adminUsers.length){ box.innerHTML='<p style="color:var(--muted)">Пайдаланушы жоқ</p>'; return; }
+    var html='';
+    adminUsers.filter(function(u){ return u.role!=='admin'; }).forEach(function(u){
+      html+='<div class="pay-card">'
+        +'<div>'
+          +'<div class="pay-user">👤 '+esc(u.name)+'</div>'
+          +'<div class="pay-email">'+esc(u.email)+'</div>'
+        +'</div>'
+        +'<div style="text-align:right">'
+          +'<div class="pay-bal">💰 '+(u.balance||0).toLocaleString()+' тг</div>'
+          +'<button class="btn btn-grn btn-sm" style="margin-top:6px" data-payuid="'+u.id+'" data-payuname="'+esc(u.name)+'" data-payubal="'+(u.balance||0)+'">Ақша жіберу</button>'
+        +'</div>'
+      +'</div>';
+    });
+    box.innerHTML=html;
+    // Populate payment modal select
+    var sel=document.getElementById('pay-user');
+    sel.innerHTML='<option value="">— Таңдаңыз —</option>';
+    adminUsers.filter(function(u){ return u.role!=='admin'; }).forEach(function(u){
+      sel.innerHTML+='<option value="'+u.id+'" data-bal="'+(u.balance||0)+'">'+esc(u.name)+' ('+esc(u.email)+')</option>';
+    });
+    // Quick-select buttons
+    document.querySelectorAll('[data-payuid]').forEach(function(btn){
+      btn.addEventListener('click',function(){
+        var uid=btn.getAttribute('data-payuid');
+        var uname=btn.getAttribute('data-payuname');
+        var ubal=parseFloat(btn.getAttribute('data-payubal'));
+        document.getElementById('pay-user').value=uid;
+        document.getElementById('pay-cur-balance').textContent=uname+' — ағымдағы баланс: '+(ubal||0).toLocaleString()+' тг';
+        openM('m-payment');
+      });
+    });
+  });
+}
+
+function loadAdminPayments() {
+  apiCall('GET','/admin/payments',null,function(d){
+    var rows=(d&&d.payments)||[];
+    var tbody=document.getElementById('adm-payments');
+    if(!rows.length){ tbody.innerHTML='<tr><td colspan="5" style="color:var(--muted);text-align:center">Төлем тарихы жоқ</td></tr>'; return; }
+    tbody.innerHTML=rows.map(function(p){
+      return '<tr>'
+        +'<td style="color:var(--muted);font-size:.8em">'+fmtDT(p.created_at)+'</td>'
+        +'<td><b>'+esc(p.user_name)+'</b><br><span style="color:var(--muted);font-size:.78em">'+esc(p.user_email)+'</span></td>'
+        +'<td style="color:var(--grn);font-weight:700">+'+parseFloat(p.amount).toLocaleString()+' тг</td>'
+        +'<td style="color:var(--muted)">'+esc(p.note||'—')+'</td>'
+        +'<td style="color:var(--muted);font-size:.82em">'+esc(p.admin_name)+'</td>'
+      +'</tr>';
+    }).join('');
+  });
+}
+
+// Payment modal: баланс жаңарту
+document.addEventListener('DOMContentLoaded', function(){
+  var sel=document.getElementById('pay-user');
+  if(sel){
+    sel.addEventListener('change',function(){
+      var opt=sel.options[sel.selectedIndex];
+      var balEl=document.getElementById('pay-cur-balance');
+      if(opt && opt.value){
+        var bal=parseFloat(opt.getAttribute('data-bal')||0);
+        balEl.textContent=opt.text+' — ағымдағы баланс: '+bal.toLocaleString()+' тг';
+      } else { balEl.textContent=''; }
+    });
+  }
+});
+
+function doPayment() {
+  var uid=V('pay-user');
+  var amount=parseFloat(V('pay-amount'));
+  var note=V('pay-note');
+  if(!uid){ showMsg('payment-msg','Пайдаланушы таңдаңыз','err'); return; }
+  if(!amount||amount<=0){ showMsg('payment-msg','Дұрыс соманы енгізіңіз','err'); return; }
+  apiCall('POST','/admin/payment',{user_id:parseInt(uid),amount:amount,note:note},function(r){
+    if(r&&r.message){
+      showMsg('payment-msg',r.message,'ok');
+      document.getElementById('pay-amount').value='';
+      document.getElementById('pay-note').value='';
+      document.getElementById('pay-cur-balance').textContent='Жаңа баланс: '+r.newBalance.toLocaleString()+' тг';
+      loadAdminUsers();
+      loadAdminPayments();
+      toast(r.message,'ok');
+    } else {
+      showMsg('payment-msg',(r&&r.error)||'Қате','err');
+    }
+  });
+}
+
+// ── ADMIN: MOVIE ACTIONS ──
+function addMovie() {
+  var data={title:V('am-title'),genre:V('am-genre'),duration:parseInt(V('am-dur')),
+    rating:parseFloat(V('am-rating')||0),year:parseInt(V('am-year')||2025),
+    age_limit:V('am-age'),emoji:V('am-emoji')||'🎬',director:V('am-dir'),description:V('am-desc')};
+  if(!data.title){ showMsg('add-movie-msg','Атауы міндетті','err'); return; }
+  apiCall('POST','/movies',data,function(r){
+    if(r&&r.movie){
+      if(photoData){
+        apiCall('POST','/upload/movie-photo/'+r.movie.id,{imageData:photoData,mimeType:photoMime},function(ur){
+          resetPhoto();
+          if(ur&&ur.url) showMsg('add-movie-msg','Фильм және фото қосылды!','ok');
+          else showMsg('add-movie-msg','Фильм қосылды (фото қатесі)','ok');
+          loadMovies(); loadAdminMovies(); loadAdminStats();
+        });
+      } else {
+        showMsg('add-movie-msg','Фильм қосылды!','ok');
+        loadMovies(); loadAdminMovies(); loadAdminStats();
+      }
+    } else {
+      showMsg('add-movie-msg',(r&&r.errors&&r.errors[0]&&r.errors[0].msg)||(r&&r.error)||'Қате','err');
+    }
+  });
+}
+
+function openEditMovie(id) {
+  var m = allMovies.find(function(x){ return x.id === id; });
+  if(!m) {
+    // fallback: fetch from API
+    apiCall('GET','/movies/'+id,null,function(r){
+      if(r && r.id) fillEditForm(r);
+    });
+    return;
+  }
+  fillEditForm(m);
+}
+
+function fillEditForm(m) {
+  document.getElementById('em-id').value = m.id;
+  document.getElementById('em-title').value = m.title || '';
+  document.getElementById('em-dur').value = m.duration || '';
+  document.getElementById('em-rating').value = m.rating || '';
+  document.getElementById('em-year').value = m.year || '';
+  document.getElementById('em-emoji').value = m.emoji || '🎬';
+  document.getElementById('em-dir').value = m.director || '';
+  document.getElementById('em-desc').value = m.description || '';
+  // Genre select
+  var gs = document.getElementById('em-genre');
+  for(var i=0;i<gs.options.length;i++){
+    if(gs.options[i].value === m.genre || gs.options[i].text === m.genre) { gs.selectedIndex=i; break; }
+  }
+  // Age select
+  var as = document.getElementById('em-age');
+  for(var i=0;i<as.options.length;i++){
+    if(as.options[i].value === m.age_limit || as.options[i].text === m.age_limit) { as.selectedIndex=i; break; }
+  }
+  document.getElementById('edit-movie-msg').innerHTML = '';
+  openM('m-edit-movie');
+}
+
+function saveEditMovie() {
+  var id = document.getElementById('em-id').value;
+  var data = {
+    title:       document.getElementById('em-title').value.trim(),
+    genre:       document.getElementById('em-genre').value,
+    duration:    parseInt(document.getElementById('em-dur').value) || 0,
+    rating:      parseFloat(document.getElementById('em-rating').value) || 0,
+    year:        parseInt(document.getElementById('em-year').value) || 2025,
+    age_limit:   document.getElementById('em-age').value,
+    emoji:       document.getElementById('em-emoji').value.trim() || '🎬',
+    director:    document.getElementById('em-dir').value.trim(),
+    description: document.getElementById('em-desc').value.trim()
+  };
+  if(!data.title){ showMsg('edit-movie-msg','Атауы міндетті','err'); return; }
+  apiCall('PUT','/movies/'+id, data, function(r){
+    if(r && r.movie){
+      showMsg('edit-movie-msg','✅ Фильм жаңартылды!','ok');
+      loadMovies(); loadAdminMovies();
+      setTimeout(function(){ closeM('m-edit-movie'); }, 1200);
+    } else {
+      showMsg('edit-movie-msg',(r&&r.error)||'Қате болды','err');
+    }
+  });
+}
+
+function deleteMovie(id,title) {
+  if(!confirm('"'+title+'" фильмін өшіресіз бе?')) return;
+  apiCall('DELETE','/movies/'+id,null,function(r){
+    if(r&&r.message){ toast(r.message,'ok'); loadMovies(); loadAdminMovies(); loadAdminStats(); }
+    else toast((r&&r.error)||'Қате','err');
+  });
+}
+
+function addSession() {
+  apiCall('POST','/sessions',{movie_id:parseInt(V('as-movie')),hall_id:parseInt(V('as-hall')),date_time:V('as-dt'),price:parseFloat(V('as-price'))},function(r){
+    if(r&&r.sessionId){ showMsg('add-sess-msg','Сеанс жасалды!','ok'); loadSessions(); loadAdminSessions(); loadAdminStats(); }
+    else showMsg('add-sess-msg',(r&&r.error)||'Қате','err');
+  });
+}
+
+function deleteSession(id) {
+  if(!confirm('Сеансты өшіресіз бе?')) return;
+  apiCall('DELETE','/sessions/'+id,null,function(r){
+    if(r&&r.message){ toast(r.message,'ok'); loadSessions(); loadAdminSessions(); loadAdminStats(); }
+    else toast((r&&r.error)||'Қате','err');
+  });
+}
+
+// ── PHOTO ──
+function previewPhoto(input) {
+  var file=input.files[0];
+  if(!file) return;
+  if(file.size>5*1024*1024){ toast('Файл 5MB-тан аспауы керек','err'); return; }
+  var reader=new FileReader();
+  reader.onload=function(e){
+    photoData=e.target.result; photoMime=file.type;
+    var drop=document.getElementById('pdrop');
+    drop.innerHTML='<img src="'+e.target.result+'" style="width:100%;height:100%;object-fit:cover;border-radius:8px">';
+  };
+  reader.readAsDataURL(file);
+}
+
+function resetPhoto() {
+  photoData=null; photoMime=null;
+  document.getElementById('pdrop').innerHTML=
+    '<div id="pdrop-txt"><div style="font-size:2em;margin-bottom:6px">📷</div>'
+    +'<div style="font-size:.82em;color:var(--muted)">Фото таңдау үшін басыңыз</div></div>';
+  document.getElementById('am-photo').value='';
+}
+
+function uploadPhoto(input) {
+  var mid=parseInt(input.getAttribute('data-upid'));
+  var file=input.files[0];
+  if(!file) return;
+  if(file.size>5*1024*1024){ toast('Файл 5MB-тан аспауы керек','err'); return; }
+  toast('Фото жүктелуде...','info');
+  var reader=new FileReader();
+  reader.onload=function(e){
+    apiCall('POST','/upload/movie-photo/'+mid,{imageData:e.target.result,mimeType:file.type},function(r){
+      if(r&&r.url){ toast('✅ Фото сәтті жүктелді!','ok'); loadMovies(); loadAdminMovies(); }
+      else toast((r&&r.error)||'Жүктеу қатесі','err');
+    });
+  };
+  reader.readAsDataURL(file);
+}
+
+// ── HELPERS ──
+function apiCall(method,path,body,cb) {
+  var opts={method:method,headers:{'Content-Type':'application/json'}};
+  if(body) opts.body=JSON.stringify(body);
+  fetch('/api'+path,opts)
+    .then(function(r){ return r.json(); })
+    .then(cb)
+    .catch(function(){ cb(null); });
+}
+function V(id){ var el=document.getElementById(id); return el?el.value.trim():''; }
+function openM(id){ var el=document.getElementById(id); if(el) el.classList.add('on'); }
+function closeM(id){ var el=document.getElementById(id); if(el) el.classList.remove('on'); }
+function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function showMsg(id,msg,type){
+  var el=document.getElementById(id); if(!el) return;
+  el.innerHTML='<div class="mm '+type+'">'+msg+'</div>';
+  setTimeout(function(){el.innerHTML='';},5000);
+}
+var toastT;
+function toast(msg,type){
+  var el=document.getElementById('toast');
+  el.textContent=msg; el.className='show '+(type||'info');
+  clearTimeout(toastT);
+  toastT=setTimeout(function(){el.className='';},4000);
+}
+function fmtDT(dt){
+  if(!dt) return '—';
+  try{ return new Date(dt).toLocaleString('ru-RU',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'}); }
+  catch(e){ return dt; }
+}
+function imgSrc(url, updated_at){
+  if(!url) return null;
+  return url + '?v=' + (updated_at ? new Date(updated_at).getTime() : 1);
+}
+</script>
+</body>
+</html>
