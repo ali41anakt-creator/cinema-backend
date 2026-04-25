@@ -1,0 +1,12 @@
+# PostgreSQL — pgAdmin4 баптаулары
+PG_HOST=localhost
+PG_PORT=5432
+PG_DB=cinema_db
+PG_USER=postgres
+PG_PASSWORD=your_password_here
+
+# Session secret
+SESSION_SECRET=corei9-cinema-super-secret-2025
+
+# Server port
+PORT=3000
