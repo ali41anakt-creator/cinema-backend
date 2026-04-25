@@ -1,5 +1,5 @@
 # 🎬 CoreI9 Cinema — Backend Project (PostgreSQL)
-https://cinema-backend-bklw.onrender.com
+
 Байгабулов Абылай,
 Ербосынова Лаура,
 Анаш Ақдаулет,
@@ -226,10 +226,10 @@ GET /api/movies?category=action
 
 ## 👤 Демо аккаунттар
 
-| Рөл   | Email                                     | Пароль   |
-| ----- | ----------------------------------------- | -------- |
-| Admin | [admin@cinema.kz](mailto:admin@cinema.kz) | admin123 |
-| User  | [asel@mail.kz](mailto:asel@mail.kz)       | user123  |
+| Рөл   | Email                                        | Пароль   |
+| ----- | -----------------------------------------    | -------- |
+| Admin | [alikhan@gmail.com(mailto:alikhan@gmail.com) | 123456   |
+| User  | [alihan@gmail.com](mailto:alihan@gmail.com)  | user123  |
 
 ---
 
@@ -243,16 +243,19 @@ GET /api/movies?category=action
 
 ## 🌐 Деплой
 
-Жоба Render платформасында орналастырылған (егер бар болса сілтемені қос):
+Жоба Render платформасында орналастырылған 
 
-👉 https://your-app.onrender.com
+👉 [https://your-app.onrender.com](https://cinema-backend-bklw.onrender.com)
 
 ---
 
 ## 👨‍💻 Авторлар
 
-* Команда мүшелері (аты-жөніңді жаз)
-
+* Команда мүшелері 
+Байгабулов Абылай,
+Ербосынова Лаура,
+Анаш Ақдаулет,
+Жақсылық Әлихан,
 ---
 
 ## 📊 Қорытынды
