@@ -1,5 +1,5 @@
 # 🎬 CoreI9 Cinema — Backend Project (PostgreSQL)
-
+https://cinema-backend-bklw.onrender.com
 Байгабулов Абылай,
 Ербосынова Лаура,
 Анаш Ақдаулет,
